@@ -1,0 +1,61 @@
+.register {
+  &-form {
+    width: 100%;
+    padding: 18%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    height: 70vh;
+    min-height: 200px;
+    @media screen and (max-width: 900px) {
+      padding: 10%;
+    }
+    @media screen and (max-width: 768px) {
+      padding: 7%;
+    }
+  }
+
+  &-container-image {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--theme-primary);
+    @media screen and (max-width: 768px) {
+      height: auto;
+    }
+  }
+  &-image {
+    width: 75%;
+    margin: 0 auto;
+    border-radius: 15px;
+    @media screen and (max-width: 768px) {
+      height: 200px;
+    }
+
+    @media screen and (max-width: 425px) {
+      height: 150px;
+    }
+  }
+  &-button {
+    background-color: var(--theme-primary);
+    border: 0px;
+    padding: 10px;
+    &:focus {
+      outline: none;
+      background-color: var(--theme-primary);
+    }
+    &:active,
+    &:hover {
+      background-color: var(--theme-primary);
+    }
+  }
+  &-login {
+    color: var(--theme-primary);
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,148 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-6 register-container-image">
+      <img src="assets/images/login.webp" alt="login" class="register-image" />
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="register-form mt-5">
+        <form [formGroup]="frmRegister" (ngSubmit)="onSubmit()" class="w-100">
+          <h2 class="text-center mb-2 mb-md-5 mt-0 mt-md-5">Registro</h2>
+          <div class="form-group mt-3 mt-md-3 mb-3">
+            <label for="name">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter name"
+              formControlName="name"
+            />
+            <div class="form-inline" *ngIf="showError('name')">
+              <div
+                class="text-danger"
+                *ngIf="getErrorsFromField('name')?.required"
+              >
+                El nombre es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3 mb-3">
+            <label for="name">Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              placeholder="Ingrese su apellido"
+              formControlName="lastName"
+            />
+            <div class="form-inline" *ngIf="showError('lastName')">
+              <div
+                class="text-danger"
+                *ngIf="getErrorsFromField('lastName')?.required"
+              >
+                El apellido es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3 mb-3">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+              formControlName="email"
+            />
+            <div class="form-inline" *ngIf="showError('email')">
+              <div
+                class="text-danger"
+                *ngIf="getErrorsFromField('email')?.required"
+              >
+                Email es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3 mb-3">
+            <label for="password">Ingrese su contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Ingrese su contraseña"
+              formControlName="password"
+            />
+            <div class="form-inline" *ngIf="showError('password')">
+              <div *ngIf="showError('password', true)" class="text-danger">
+                <div
+                  *ngIf="getErrorsFromField('password')?.required"
+                  class="text-danger"
+                >
+                  Contraseña es requerida.
+                </div>
+                <div
+                  *ngIf="getErrorsFromField('password')?.oneNumber"
+                  class="text-danger"
+                >
+                  La contraseña debe tener como mínimo 1 número.
+                </div>
+                <div
+                  *ngIf="getErrorsFromField('password')?.oneLetter"
+                  class="text-danger"
+                >
+                  La contraseña debe tener como mínimo 1 letra.
+                </div>
+                <div
+                  *ngIf="getErrorsFromField('password')?.oneSpecialCharacter"
+                  class="text-danger"
+                >
+                  La contraseña debe tener como mínimo 1 caracter especial.
+                </div>
+                <div
+                  *ngIf="getErrorsFromField('password')?.minlength"
+                  class="text-danger"
+                >
+                  La contraseña debe tener como mínimo 8 digitos.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3 mb-3">
+            <label for="password">Confirmar contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Ingrese su contraseña"
+              formControlName="confirmPassword"
+            />
+            <div class="form-inline" *ngIf="showError('confirmPassword')">
+              <div *ngIf="showError('confirmPassword')" class="text-danger">
+                <div
+                  *ngIf="
+                    getErrorsFromField('confirmPassword')?.mismatchedPasswords
+                  "
+                  class="text-danger"
+                >
+                  Las contraseñas no coinciden
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-5">
+            <button
+              type="submit"
+              class="btn btn-primary w-100 register-button"
+              [disabled]="frmRegister.invalid"
+            >
+              Login
+            </button>
+          </div>
+          <div class="form-group mt-3">
+            <a class="text-center register-login d-block" routerLink="/login"
+              >Ingresa aquí</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

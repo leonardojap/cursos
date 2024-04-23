@@ -1,0 +1,19 @@
+.header {
+  background-color: var(--theme-primary);
+  &-link {
+    color: white !important;
+  }
+  &-button {
+    color: white !important;
+    background: #ccc;
+    border: 0;
+    &:focus {
+      outline: none;
+      background: #ccc;
+      box-shadow: none;
+    }
+  }
+  &-title {
+    color: white;
+  }
+}

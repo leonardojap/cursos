@@ -1,0 +1,15 @@
+.dashboard {
+  min-height: calc(100vh - 56px);
+  &-sidebar {
+    width: 280px;
+    min-height: calc(100vh - 56px);
+  }
+  &-title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  &-description {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

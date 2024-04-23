@@ -1,0 +1,10 @@
+.footer {
+  &-bg {
+    background: var(--theme-primary);
+    padding: 20px;
+    min-height: 100px;
+  }
+  &-link {
+    color: white;
+  }
+}

@@ -1,0 +1,69 @@
+<div class="flex-shrink-0 p-3 bg-dark sidebar d-none d-md-block">
+  <a
+    routerLink="/dashboard"
+    class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
+  >
+    <svg class="bi me-2" width="30" height="24">
+      <use xlink:href="#bootstrap"></use>
+    </svg>
+    <span class="fs-5 fw-semibold sidebar-link">Admin</span>
+  </a>
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle align-items-center rounded sidebar-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#home-collapse"
+        aria-expanded="true"
+      >
+        Cursos
+      </button>
+      <div class="collapse show" id="home-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li class="ms-4 mt-2 mb-2">
+            <a
+              routerLink="/dashboard/cursos/registro"
+              class="link-dark rounded sidebar-link"
+              >Registrar</a
+            >
+          </li>
+          <li class="ms-4 mt-2 mb-2">
+            <a
+              routerLink="/dashboard/cursos/listado"
+              class="link-dark rounded sidebar-link"
+              >Listado</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle align-items-center rounded collapsed sidebar-link"
+        data-bs-toggle="collapse"
+        data-bs-target="#dashboard-collapse"
+        aria-expanded="true"
+      >
+        Estudiantes
+      </button>
+      <div class="collapse show" id="dashboard-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li class="ms-4 mt-2 mb-2">
+            <a
+              routerLink="/dashboard/estudiantes/registro"
+              class="link-dark rounded sidebar-link"
+              >Registrar</a
+            >
+          </li>
+          <li class="ms-4 mt-2 mb-2">
+            <a
+              routerLink="/dashboard/estudiantes/listado"
+              class="link-dark rounded sidebar-link"
+              >Listado</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

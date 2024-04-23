@@ -1,0 +1,10 @@
+.sidebar {
+  max-width: 280px;
+  width: 100%;
+  max-height: calc(117vh - 56px);
+  min-height: 100vh;
+  height: 100%;
+  &-link {
+    color: white !important;
+  }
+}

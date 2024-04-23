@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-6 login-container-image">
+      <img src="assets/images/login.webp" alt="login" class="login-image" />
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="login-form mt-3 mt-md-5">
+        <form [formGroup]="frmLogin" (ngSubmit)="onSubmit()" class="w-100">
+          <h2 class="text-center mb-2 mb-md-5 mt-0 mt-md-5">Login</h2>
+          <div class="form-group mt-3 mb-3">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+              formControlName="email"
+            />
+            <div class="form-inline" *ngIf="showError('email')">
+              <div
+                class="text-danger"
+                *ngIf="getErrorsFromField('email')?.required"
+              >
+                Email es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-3 mb-3">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <div class="form-inline" *ngIf="showError('password')">
+              <div
+                class="text-danger"
+                *ngIf="getErrorsFromField('password')?.required"
+              >
+                Password es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-5">
+            <button
+              type="submit"
+              class="btn btn-primary w-100 login-button"
+              [disabled]="frmLogin.invalid"
+            >
+              Login
+            </button>
+          </div>
+          <div class="form-group mt-3">
+            <a class="text-center login-register d-block" routerLink="/registro"
+              >Registrate aquí</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
