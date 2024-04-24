@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '@shared/services/auth.service';
+import { Router } from '@angular/router';
+import { CoursesService } from '@shared/services/courses.service';
 
 @Component({
   selector: 'app-register-courses',
   templateUrl: './register-courses.component.html',
   styleUrl: './register-courses.component.scss',
 })
-export class RegisterCoursesComponent {
+export class RegisterCoursesComponent implements OnInit {
   frmRegister!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private coursesService: CoursesService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -21,10 +23,9 @@ export class RegisterCoursesComponent {
 
   private initForm(): void {
     this.frmRegister = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.minLength(50)]],
-      time: [null, [Validators.required]],
-      dateStart: [null, [Validators.required]],
-      dateEnd: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.maxLength(50)]],
+      start_date: [null, [Validators.required]],
+      end_date: [null, [Validators.required]],
       type: [null, [Validators.required]],
     });
   }
@@ -34,11 +35,12 @@ export class RegisterCoursesComponent {
       return;
     }
 
-    // Call to service
-    this.authService
-      .register(this.frmRegister.value.email, this.frmRegister.value.password)
+    this.coursesService
+      .register(this.frmRegister.value)
       .subscribe((response) => {
-        console.log(response);
+        if (response) {
+          this.router.navigate(['/dashboard/cursos/listado']);
+        }
       });
   }
 

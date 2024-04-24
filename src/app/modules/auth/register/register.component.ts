@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PATTERN_EMAIL, RENAME_VALIDATOR_ERROR } from '@shared/constants/utils';
 import { AuthService } from '@shared/services/auth.service';
 
@@ -13,7 +14,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -66,16 +68,19 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    let data = this.frmRegister.value;
+    delete data.confirmPassword;
     // Call to service
-    this.authService
-      .register(this.frmRegister.value.email, this.frmRegister.value.password)
-      .subscribe((response) => {
-        console.log(response);
-      });
+    this.authService.register(data).subscribe((resp) => {
+      if (resp) {
+        this.frmRegister.reset();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   showError(field: string, dirty: boolean = false): boolean | undefined {
-    const control = this.frmRegister.get(field)!;
+    const control: any = this.frmRegister.get(field)!;
     return dirty
       ? control.invalid && (control.dirty || control.touched)
       : control.invalid && control.touched;

@@ -5,8 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PATTERN_EMAIL } from '@shared/constants/utils';
-import { AuthService } from '@shared/services/auth.service';
+import { StudentsService } from '@shared/services/students.service';
 
 @Component({
   selector: 'app-register-students',
@@ -23,20 +24,20 @@ export class RegisterStudentsComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private studentsService: StudentsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.initForm();
-    this.data();
   }
 
   private initForm(): void {
     this.frmRegister = this.formBuilder.group({
       name: [null, [Validators.required, Validators.maxLength(100)]],
-      lastName: [null, [Validators.required, Validators.maxLength(100)]],
-      yearOld: [null, [Validators.required, this.isOlder]],
-      identify: [null, [Validators.required, Validators.maxLength(11)]],
+      lastname: [null, [Validators.required, Validators.maxLength(100)]],
+      age: [null, [Validators.required]],
+      identification: [null, [Validators.required, Validators.maxLength(11)]],
       email: [
         null,
         [
@@ -45,7 +46,6 @@ export class RegisterStudentsComponent {
           Validators.pattern(PATTERN_EMAIL),
         ],
       ],
-      courses: [null, [Validators.required]],
     });
   }
 
@@ -75,34 +75,13 @@ export class RegisterStudentsComponent {
     }
 
     // Call to service
-    this.authService
-      .register(this.frmRegister.value.email, this.frmRegister.value.password)
-      .subscribe((response) => {
-        console.log(response);
-      });
-  }
-
-  data() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' },
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true,
-    };
+    this.studentsService.register(this.frmRegister.value).subscribe((resp) => {
+      if (resp) {
+        // Show success message
+        this.frmRegister.reset();
+        this.router.navigate(['/dashboard/estudiantes/listado']);
+      }
+    });
   }
 
   showError(field: string, dirty: boolean = false): boolean | undefined {
@@ -114,31 +93,5 @@ export class RegisterStudentsComponent {
 
   getErrorsFromField(field: string): any {
     return this.frmRegister.get(field)?.errors;
-  }
-
-  onItemSelect(item: any) {
-    //validate if the item is already in the array
-    const index = this.selectedCourses.findIndex(
-      (course: any) => course.item_id === item.item_id
-    );
-    if (index !== -1) {
-      return;
-    }
-    this.selectedCourses.push(item);
-    this.frmRegister.get('courses')?.setValue(this.selectedCourses);
-  }
-  onSelectAll(items: any) {
-    this.selectedCourses = [];
-    this.selectedCourses = items;
-    this.frmRegister.get('courses')?.setValue(this.selectedCourses);
-  }
-  onItemDeSelect(item: any) {
-    const index = this.selectedCourses.findIndex(
-      (course: any) => course.item_id === item.item_id
-    );
-    if (index !== -1) {
-      this.selectedCourses.splice(index, 1);
-    }
-    this.frmRegister.get('courses')?.setValue(this.selectedCourses);
   }
 }

@@ -32,12 +32,12 @@
               class="form-control"
               id="lastName"
               placeholder="Ingrese su apellido"
-              formControlName="lastName"
+              formControlName="lastname"
             />
-            <div class="form-inline" *ngIf="showError('lastName')">
+            <div class="form-inline" *ngIf="showError('lastname')">
               <div
                 class="text-danger"
-                *ngIf="getErrorsFromField('lastName')?.required"
+                *ngIf="getErrorsFromField('lastname')?.required"
               >
                 El apellido es requerido.
               </div>
@@ -106,11 +106,11 @@
             </div>
           </div>
           <div class="form-group mt-3 mb-3">
-            <label for="password">Confirmar contraseña</label>
+            <label for="confirmPassword">Confirmar contraseña</label>
             <input
               type="password"
               class="form-control"
-              id="password"
+              id="confirmPassword"
               placeholder="Ingrese su contraseña"
               formControlName="confirmPassword"
             />
@@ -133,7 +133,7 @@
               class="btn btn-primary w-100 register-button"
               [disabled]="frmRegister.invalid"
             >
-              Login
+              Registrarse
             </button>
           </div>
           <div class="form-group mt-3">

@@ -4,5 +4,5 @@
 
 export const environment = {
   name: 'development',
-  apiBaseUrl: '',
+  apiBaseUrl: 'http://localhost:8000',
 };

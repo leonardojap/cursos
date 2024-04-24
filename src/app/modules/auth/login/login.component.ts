@@ -36,11 +36,15 @@ export class LoginComponent implements OnInit {
     }
 
     // Call to service
-    this.authService
-      .login(this.frmLogin.value.email, this.frmLogin.value.password)
-      .subscribe((response) => {
-        console.log(response);
-      });
+    this.authService.login(this.frmLogin.value).subscribe((data: any) => {
+      const resp = data.data;
+      if (resp) {
+        localStorage.setItem('access_token', resp.token);
+        localStorage.setItem('user', JSON.stringify(resp.user));
+        // Redirect to dashboard
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
   showError(field: string, dirty: boolean = false): boolean | undefined {

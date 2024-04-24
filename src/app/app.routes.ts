@@ -1,11 +1,9 @@
 import { Routes } from '@angular/router';
-import { LoggedGuard } from '@shared/guards/logged.guard';
 import { SessionGuard } from '@shared/guards/session.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    canActivate: [LoggedGuard],
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },

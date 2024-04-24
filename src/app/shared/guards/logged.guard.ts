@@ -20,6 +20,7 @@ export class LoggedGuard {
 
   private validateLogin(isLoggedIn: boolean): boolean {
     const user = this.authService.getUser();
+
     let router = '/';
     if (user !== null && user !== undefined) {
       router = '/dashboard';

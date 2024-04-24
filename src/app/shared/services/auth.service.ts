@@ -1,27 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@environments/environment';
+import { ILogin, IRegister } from '@shared/interfaces/auth.interface';
+import { LoginModel } from '@shared/models/auth.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly urlBase = `${environment.apiBaseUrl}`;
   constructor(private httpClient: HttpClient) {}
 
-  login(email: string, password: string) {
-    return this.httpClient.post(`${this.urlBase}/login`, { email, password });
+  register(data: IRegister) {
+    return this.httpClient.post(`/api/register`, data);
+  }
+
+  login(data: ILogin): Observable<LoginModel> {
+    return this.httpClient.post<LoginModel>(`/api/login`, data);
   }
 
   logout() {
-    return this.httpClient.post(`${this.urlBase}/logout`, {});
-  }
-
-  register(email: string, password: string) {
-    return this.httpClient.post(`${this.urlBase}/register`, {
-      email,
-      password,
-    });
+    return this.httpClient.post(`/api/logout`, {});
   }
 
   isLoggedIn(): boolean {
