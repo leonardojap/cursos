@@ -23,7 +23,7 @@
     @media screen and (max-width: 768px) {
       height: auto;
     }
-    background-color: var(--theme-primary);
+    background-color: rgb(33, 37, 41);
   }
   &-image {
     width: 75%;
@@ -38,20 +38,20 @@
     }
   }
   &-button {
-    background-color: var(--theme-primary);
+    background-color: rgb(33, 37, 41);
     border: 0px;
     padding: 10px;
     &:focus {
       outline: none;
-      background-color: var(--theme-primary);
+      background-color: rgb(33, 37, 41);
     }
     &:active,
     &:hover {
-      background-color: var(--theme-primary);
+      background-color: rgb(33, 37, 41);
     }
   }
   &-register {
-    color: var(--theme-primary);
+    color: rgb(33, 37, 41);
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
