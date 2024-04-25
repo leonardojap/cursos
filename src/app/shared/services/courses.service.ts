@@ -26,4 +26,17 @@ export class CoursesService {
   get(id: number) {
     return this.httpClient.get(`/api/courses/${id}`);
   }
+
+  //schedules
+  createSchedules(data: any) {
+    return this.httpClient.post(`/api/schedules`, data);
+  }
+
+  editSchedules(id: number, data: any) {
+    return this.httpClient.put(`/api/schedules/${id}`, data);
+  }
+
+  deleteSchedules(id: number) {
+    return this.httpClient.delete(`/api/schedules/${id}`);
+  }
 }

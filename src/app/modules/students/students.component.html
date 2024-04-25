@@ -1,15 +1,65 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 mt-5 mb-5">
-      <h1>Listado de estudiantes</h1>
+      <h1 class="text-center">Listado de estudiantes</h1>
+    </div>
+    <div class="col-12">
+      <a
+        routerLink="/dashboard/estudiantes/registro"
+        type="button"
+        class="btn btn-primary mb-5"
+        >Registrar estudiante</a
+      >
     </div>
     <div class="col-12 mb-5">
       <div class="table-responsive">
-        <table
-          datatable
-          class="row-border hover table table-striped w-100"
-          [dtOptions]="dtOptions"
-        ></table>
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <td>Id</td>
+              <td>Nombre</td>
+              <td>Cédula</td>
+              <td>Email</td>
+              <td>Edad</td>
+              <td>Acción</td>
+            </tr>
+          </thead>
+          <tbody *ngIf="students?.data.length">
+            <tr *ngFor="let item of students.data">
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }} {{ item.lastname }}</td>
+              <td>{{ item.identification }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.age }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary me-2"
+                  (click)="bindCourseStudent(item.id)"
+                >
+                  <i class="bi bi-journal-bookmark-fill"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-success me-2"
+                  (click)="edit(item.id)"
+                >
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="deleteCourse"
+                  (click)="deleteCourse(item.id)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

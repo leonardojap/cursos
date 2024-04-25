@@ -58,7 +58,7 @@
               </div>
               <div
                 class="text-danger"
-                *ngIf="getErrorsFromField('age')?.futureDate"
+                *ngIf="getErrorsFromField('age')?.isOlder"
               >
                 Debe ser mayor de edad
               </div>

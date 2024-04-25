@@ -1,0 +1,90 @@
+<div
+  class="modal-header bind-student-course position-absolute bind-student-course-close"
+>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="frmRegister" (ngSubmit)="onSubmit()" class="w-100">
+    <h2 class="text-center mb-4 mt-2">Asignar cursos</h2>
+    <p class="text-center bind-student-course-title">
+      {{ students.name }} {{ students.lastname }}
+    </p>
+
+    <div class="form-group mt-3 mb-3">
+      <label for="course_id">Seleccionar curso</label>
+      <select
+        class="form-select"
+        id="course_id"
+        aria-label="Floating label select example"
+        formControlName="course_id"
+        #course_id
+      >
+        <option selected>Seleccione</option>
+        <option [value]="item.id" *ngFor="let item of listCourses">
+          {{ item.name }}
+        </option>
+      </select>
+      <div class="form-inline" *ngIf="showError('course_id')">
+        <div
+          class="text-danger"
+          *ngIf="getErrorsFromField('course_id')?.required"
+        >
+          Día del curso es requerido
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-4 mb-4">
+      <button
+        type="submit"
+        class="btn btn-dark w-100 register-button"
+        [disabled]="frmRegister.invalid"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="col-12 mb-5">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <td>Id</td>
+                  <td>Comienzo del curso</td>
+                  <td>Fin del curso</td>
+                  <td>Acción</td>
+                </tr>
+              </thead>
+              <tbody *ngIf="studentListCourse.length">
+                <tr *ngFor="let item of studentListCourse">
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.start_date }}</td>
+                  <td>{{ item.end_date }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      id="deleteCourse"
+                      (click)="deleteCourse(item.id)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

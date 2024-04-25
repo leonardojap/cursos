@@ -1,0 +1,131 @@
+<div
+  class="modal-header modal-schedules position-absolute modal-schedules-close"
+>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="frmRegister" (ngSubmit)="onSubmit()" class="w-100">
+    <h2 class="text-center mb-4 mt-2">Agregar Horario</h2>
+
+    <div class="form-group mt-3 mb-3">
+      <label for="day">Día del curso</label>
+      <select
+        class="form-select"
+        id="day"
+        aria-label="Floating label select example"
+        formControlName="day"
+        #day
+      >
+        <option selected>Seleccione</option>
+        <option value="LUNES">Lunes</option>
+        <option value="MARTES">Martes</option>
+        <option value="MIERCOLES">Miercoles</option>
+        <option value="JUEVES">Jueves</option>
+        <option value="VIERNES">Viernes</option>
+        <option value="SABADO">Sabado</option>
+        <option value="DOMINGO">Domingo</option>
+      </select>
+      <div class="form-inline" *ngIf="showError('day')">
+        <div class="text-danger" *ngIf="getErrorsFromField('day')?.required">
+          Día del curso es requerido
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3 mb-3">
+      <label for="start_hour">Hora de inicio</label>
+      <input
+        type="number"
+        class="form-control"
+        id="start_hour"
+        placeholder="Hora de inicio"
+        formControlName="start_hour"
+        min="0"
+        max="23"
+      />
+      <div class="form-inline" *ngIf="showError('start_hour')">
+        <div
+          class="text-danger"
+          *ngIf="getErrorsFromField('start_hour')?.required"
+        >
+          Hora de inicio es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="form-group mt-3 mb-3">
+      <label for="end_hour">Hora fin</label>
+      <input
+        type="number"
+        class="form-control"
+        id="end_hour"
+        placeholder="Hora fin"
+        formControlName="end_hour"
+        min="0"
+        max="23"
+      />
+      <div class="form-inline" *ngIf="showError('end_hour')">
+        <div
+          class="text-danger"
+          *ngIf="getErrorsFromField('end_hour')?.required"
+        >
+          Hora fin es requerido.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-4 mb-4">
+      <button
+        type="submit"
+        class="btn btn-dark w-100 register-button"
+        [disabled]="frmRegister.invalid"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="col-12 mb-5">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <td>Id</td>
+                  <td>Día</td>
+                  <td>Hora de inicio</td>
+                  <td>Hora fin</td>
+                  <td>Acción</td>
+                </tr>
+              </thead>
+              <tbody *ngIf="listSchedules.length">
+                <tr *ngFor="let item of listSchedules">
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.day }}</td>
+                  <td>{{ item.start_hour }}</td>
+                  <td>{{ item.end_hour }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      id="deleteCourse"
+                      (click)="deleteSchedule(item.id)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

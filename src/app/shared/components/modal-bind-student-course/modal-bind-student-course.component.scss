@@ -1,0 +1,12 @@
+.bind-student-course {
+  border: 0;
+  &-close {
+    right: 0;
+    z-index: 100;
+  }
+  &-title {
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+}

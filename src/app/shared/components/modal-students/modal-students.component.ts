@@ -1,35 +1,40 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PATTERN_EMAIL } from '@shared/constants/utils';
 import { StudentsService } from '@shared/services/students.service';
 
 @Component({
-  selector: 'app-register-students',
-  templateUrl: './register-students.component.html',
-  styleUrl: './register-students.component.scss',
+  selector: 'app-modal-students',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './modal-students.component.html',
+  styleUrl: './modal-students.component.scss',
 })
-export class RegisterStudentsComponent {
+export class ModalStudentsComponent implements OnInit {
   frmRegister!: FormGroup;
-
-  dropdownList: any = [];
-  selectedItems: any = [];
-  dropdownSettings: any = {};
-  selectedCourses: any = [];
+  @Input() id!: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private studentsService: StudentsService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
     this.initForm();
+    this.studentsService.getStudent(this.id).subscribe((response: any) => {
+      this.frmRegister.patchValue(response.data);
+    });
   }
 
   private initForm(): void {
@@ -50,7 +55,7 @@ export class RegisterStudentsComponent {
   }
 
   /**
-   * Validate if the student is older than 18 years old
+   * Validate if the student is older than 18 years old with the date of birth
    */
   isOlder(control: AbstractControl): { [key: string]: boolean } | null {
     if (control.value < 18) {
@@ -65,13 +70,15 @@ export class RegisterStudentsComponent {
     }
 
     // Call to service
-    this.studentsService.register(this.frmRegister.value).subscribe((resp) => {
-      if (resp) {
-        // Show success message
-        this.frmRegister.reset();
-        this.router.navigate(['/dashboard/estudiantes/listado']);
-      }
-    });
+    this.studentsService
+      .updateStudent(this.id, this.frmRegister.value)
+      .subscribe((resp) => {
+        if (resp) {
+          // Show success message
+          this.frmRegister.reset();
+          this.modalService.dismissAll();
+        }
+      });
   }
 
   showError(field: string, dirty: boolean = false): boolean | undefined {
@@ -83,5 +90,9 @@ export class RegisterStudentsComponent {
 
   getErrorsFromField(field: string): any {
     return this.frmRegister.get(field)?.errors;
+  }
+
+  close() {
+    this.modalService.dismissAll();
   }
 }
