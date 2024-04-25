@@ -15,17 +15,37 @@
         Listado de los cursos con más estudiantes
       </h1>
     </div>
+    @if (statistics.topSixMoths.length > 0) {
     <div
       class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3"
       *ngFor="let item of this.statistics.topSixMoths"
     >
-      <app-card></app-card>
+      <app-card
+        [title]="item.name"
+        [type]="item.type"
+        [start_date]="item.start_date"
+        [end_date]="item.end_date"
+      ></app-card>
     </div>
+    }
+
+    <div class="col-12">
+      <h1 class="dashboard-title mt-4 mb-3 ms-3">
+        Listado estudiantes con más cursos
+      </h1>
+    </div>
+    @if (statistics.topSixMoths.length > 0) {
     <div
       class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3"
       *ngFor="let item of this.statistics.topStudents"
     >
-      <app-card></app-card>
+      <app-card
+        [students]="true"
+        [title]="item.name + ' ' + item.lastname"
+        [type]="item.email"
+        [start_date]="item.courses_count"
+      ></app-card>
     </div>
+    }
   </div>
 </div>

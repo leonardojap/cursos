@@ -1,11 +1,8 @@
 <div class="card course-card">
-  <img
-    src="assets/images/login.webp"
-    class="card-img-top course-card-image"
-    alt="course"
-  />
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card</p>
+    <h5 class="card-title course-card-title">{{ title }}</h5>
+    <p class="card-text">{{ type }}</p>
+    <p class="card-text" *ngIf="!students">{{ start_date }} - {{ end_date }}</p>
+    <p class="card-text" *ngIf="students">{{ start_date }} cursos</p>
   </div>
 </div>
